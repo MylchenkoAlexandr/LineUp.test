@@ -21,6 +21,5 @@ export default class EndPointControllerBase implements IEndPointController {
 
         return this;
     }
-    public handler = (req: Request, res: Response): void => {
-    }
+    public handler = async (req: Request, res: Response): Promise<void> => {}
 }

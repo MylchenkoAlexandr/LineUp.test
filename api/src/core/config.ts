@@ -11,8 +11,7 @@ export default class Config implements IConfig {
     }
 
     constructor() {
-        /* debug */
-        logger("Config", this);
+        /* debug */ logger("Config", this);
     }
 
     private _config: TConfig;
@@ -28,15 +27,13 @@ export default class Config implements IConfig {
     public init(): void {
         try {
             const params = this.create();
-
-            /* debug */
-            logger("Config.init([ params ])", params);
-
             this._config = {
                 env: params.ENV,
                 host: params.HOST_URL,
                 hostPort: +params.HOST_PORT,
-                databaseUrl: params.DATABASE
+                databaseUrl: params.DATABASE,
+                secret: params.SECRET,
+                sessionTimeout: params.SESSION_TIMEOUT
             }
 
             this._initialized = true;
