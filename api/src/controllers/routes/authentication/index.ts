@@ -4,4 +4,4 @@ import GetAuthentication from "./get";
 export default [
     PostAuthentication,
     GetAuthentication
-] ;
+];

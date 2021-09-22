@@ -1,4 +1,5 @@
-export const EndPointInitialPath:string = "api" ;
+export const EndPointInitialPath: string = "api";
+
 export enum EndPointType {
     GET = "get",
     POST = "post",

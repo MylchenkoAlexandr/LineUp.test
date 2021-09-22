@@ -1,11 +1,8 @@
-import {EndPoints} from "../../types";
+import {TEndPoints} from "../../types";
 import authentication from "./authentication";
-import {logger} from "../../helpers";
 
-/* debug */ logger("[ authentication ]", authentication ) ;
-
-const all: EndPoints = [
-    ... authentication
+const all: TEndPoints = [
+    ...authentication
 ]
 
-export default all ;
+export default all;
