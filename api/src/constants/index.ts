@@ -1,6 +1,6 @@
-import { ServerOptions, DatabaseOptionsType } from "../types"
+import { ServerOptionsType, DatabaseOptionsType } from "../types"
 
-export const ApplicationOptions: ServerOptions = {
+export const ApplicationOptions: ServerOptionsType = {
     port: 7777,
     host: "localhost"
 }

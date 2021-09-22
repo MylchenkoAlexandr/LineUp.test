@@ -1,6 +1,6 @@
 import express, { Express, Router } from 'express';
 import { Server_I } from "../interfaces";
-import { EndPoints, ServerOptions } from "../types";
+import { EndPoints, ServerOptionsType } from "../types";
 import { logger } from "../helpers";
 import { EndPointInitialPath } from "../constants";
 import EndPointControllerBase from "../base/EndPointControllerBase";
@@ -13,21 +13,23 @@ export default class Server implements Server_I {
     }
 
     private _express: Express ;
-    private _initialized: boolean = false ;
-    private _router:Router ;
-    private _options:ServerOptions;
-
-    private get router():Router {
-        return this._router ;
-    }
-    private get options():ServerOptions {
-        return this._options ;
-    }
     public get express():Express {
         return this._express ;
     }
+
+    private _initialized: boolean = false ;
     public get initialized(): boolean {
         return this._initialized ;
+    }
+
+    private _router:Router ;
+    private get router():Router {
+        return this._router ;
+    }
+
+    private _options:ServerOptionsType;
+    private get options():ServerOptionsType {
+        return this._options ;
     }
 
     constructor() {
@@ -38,8 +40,7 @@ export default class Server implements Server_I {
         if( ! this._express ) this._express = express() ;
         if( ! this._router ) this._router = express.Router({ mergeParams: true });
     }
-
-    public init( options: ServerOptions ): void {
+    public init( options: ServerOptionsType ): void {
         /* debug */ logger( "Server.init([ options ])", options );
 
         try {

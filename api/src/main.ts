@@ -1,35 +1,32 @@
 import Server from './core/server';
 import Database from './core/database';
-import { CustomException, ServerOptions } from './types';
+import { CustomException, ServerOptionsType, DatabaseOptionsType } from './types';
 import { logger } from './helpers';
 import { ApplicationOptions, DBOptions } from './constants';
 import EndPoints from './controllers/routes';
 
+function bootstrap():void {
+    const dbOptions:DatabaseOptionsType = {
+        url: DBOptions.url,
+        callback: (exception?: CustomException): void => {
+            if( exception ) return logger( "Error [database]:", exception );
 
-const db = Database.singleton() ;
-db.init( DBOptions ).then(value => {
-    logger( "Main([ value ])", value );
-} ).catch(reason => {
-    logger( "Main([ reason ])", reason );
-} ) ;
+            const serv = Server.singleton() ;
+            const options: ServerOptionsType = {
+                port: ApplicationOptions.port,
+                host: ApplicationOptions.host,
+                callback: ( exception?: CustomException ): void => {
+                    if( exception ) return logger( "Error [host]:", exception );
 
-/*
-const serv = Server.singleton() ;
-const options: ServerOptions = {
-    port: ApplicationOptions.port,
-    host: ApplicationOptions.host,
-    callback: ( exception?: CustomException ): void => {
-        if( exception ) {
-            logger( "Main([ exception ])", exception );
-            return ;
-
-        } else {
-            try { serv.addRoute( EndPoints ) }
-            catch({ message }) {
-                logger( "Main([ error ])", message );
+                    try { serv.addRoute( EndPoints ) }
+                    catch({ message }) { return logger( "Error [routes]:", message ) }
+                }
             }
+            serv.init( options ) ;
         }
     }
+    const db = Database.singleton() ;
+    db.init( dbOptions );
 }
-serv.init( options ) ;
-*/
+
+bootstrap() ;

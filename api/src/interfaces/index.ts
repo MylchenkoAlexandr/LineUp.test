@@ -1,16 +1,18 @@
 import { Express } from "express"
-import { EndPointHandler, EndPointRequirements, EndPoints, ServerOptions, DatabaseOptionsType } from "../types"
+import { EndPointHandler, EndPointRequirements, EndPoints, ServerOptionsType, DatabaseOptionsType } from "../types"
 import { EndPointType } from "../constants";
+import { Mongoose } from "mongoose";
 
 export interface Database_I {
+    readonly mongoose: Mongoose ;
     readonly initialized: boolean ;
-    init( options: DatabaseOptionsType ): Promise<void> ;
+    init( options: DatabaseOptionsType ): void ;
 }
 
 export interface Server_I {
     readonly express: Express ;
     readonly initialized: boolean ;
-    init( options: ServerOptions ): void ;
+    init( options: ServerOptionsType ): void ;
     addRoute( endpoint: EndPoints ): void ;
 }
 
