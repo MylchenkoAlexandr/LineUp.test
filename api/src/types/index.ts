@@ -4,6 +4,13 @@ import { EndPointController_I } from "../interfaces"
 
 export type CustomException = Error | string | any ;
 
+export type ConfigType = {
+    env: string ;
+    databaseUrl: string ;
+    hostPort: number ;
+    host: string ;
+}
+
 export type DatabaseOptionsType = {
     url: string ;
     callback?: ( exception?: CustomException ) => void ;

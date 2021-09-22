@@ -1,7 +1,13 @@
 import { Express } from "express"
-import { EndPointHandler, EndPointRequirements, EndPoints, ServerOptionsType, DatabaseOptionsType } from "../types"
+import { EndPointHandler, EndPointRequirements, EndPoints, ServerOptionsType, DatabaseOptionsType, ConfigType } from "../types"
 import { EndPointType } from "../constants";
 import { Mongoose } from "mongoose";
+
+export interface Config_I {
+    readonly config: ConfigType ;
+    readonly initialized: boolean ;
+    init(): void ;
+}
 
 export interface Database_I {
     readonly mongoose: Mongoose ;

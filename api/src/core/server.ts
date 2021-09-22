@@ -47,6 +47,7 @@ export default class Server implements Server_I {
             this._options = options ;
 
             this.create() ;
+            this.express.use( express.json() ) ;
             this.express.listen(
                 options.port,
                 options.host,
