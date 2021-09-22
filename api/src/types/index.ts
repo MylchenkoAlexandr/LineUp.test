@@ -1,4 +1,4 @@
-import {EndPointType} from "../constants";
+import {RequestMethodTypes} from "../constants";
 import {Request, Response} from "express";
 import {IEndPointController} from "../interfaces"
 
@@ -24,11 +24,12 @@ export type TServerOptions = {
     host: string;
     callback?: (exception?: TCustomException) => void;
 }
-export type TEndPointRequirements = {
-    type: EndPointType;
-    path: string;
-}
 export type TEndPointHandler = (req: Request, res: Response, next?: Function) => void;
+export type TEndPointRequirements = {
+    type: RequestMethodTypes;
+    path: string;
+    middlewares?: TEndPointHandler[] ;
+}
 export type TEndPoints = IEndPointController[];
 export type TResponseSuccess = {
     success: boolean;

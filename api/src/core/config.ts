@@ -11,7 +11,7 @@ export default class Config implements IConfig {
     }
 
     constructor() {
-        /* debug */ logger("Config", this);
+        /* debug */ logger("Config()", this);
     }
 
     private _config: TConfig;
@@ -39,8 +39,7 @@ export default class Config implements IConfig {
             this._initialized = true;
 
         } catch ({message}) {
-            /* error */
-            logger("Config [error]", message);
+            /* error */ logger("Config [error]", message);
             this._initialized = false;
         }
     }

@@ -1,6 +1,6 @@
 export const EndPointInitialPath: string = "api";
 
-export enum EndPointType {
+export enum RequestMethodTypes {
     GET = "get",
     POST = "post",
     PUT = "put",

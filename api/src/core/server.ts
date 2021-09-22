@@ -4,6 +4,7 @@ import {TEndPoints, TServerOptions} from "../types";
 import {logger} from "../helpers";
 import {EndPointInitialPath} from "../constants";
 import EndPointControllerBase from "../base/EndPointControllerBase";
+import cors from "cors";
 
 let _instance: Server = null;
 export default class Server implements IServer {
@@ -13,8 +14,7 @@ export default class Server implements IServer {
     }
 
     constructor() {
-        /* debug */
-        logger("Server", this);
+        /* debug */ logger("Server()", this);
     }
 
     private _express: Express;
@@ -38,13 +38,11 @@ export default class Server implements IServer {
     }
 
     public init(options: TServerOptions): void {
-        /* debug */
-        logger("Server.init([ options ])", options);
-
         try {
             this._options = options;
 
             this.create();
+            this.express.use(cors());
             this.express.use(express.json());
             this.express.listen(
                 options.port,
@@ -54,8 +52,7 @@ export default class Server implements IServer {
 
             this._initialized = true;
 
-            /* debug */
-            logger(`Server.init()`, `Listening on //${options.host}:${options.port}/${EndPointInitialPath}/*`);
+            /* debug */ logger(`Server.init()`, `Listening on //${options.host}:${options.port}/${EndPointInitialPath}/*`);
 
         } catch ({message}) {
             this._initialized = false;
@@ -63,18 +60,13 @@ export default class Server implements IServer {
         }
     }
     public addRoute(endpoints: TEndPoints): void {
-        if (this.initialized) {
-
-            endpoints.forEach((endpoint: EndPointControllerBase) => {
-                logger(`Server.addRoute([+])`, `${endpoint.type.toUpperCase()} //${this.options.host}:${this.options.port}/${EndPointInitialPath}${endpoint.path}`);
-                this.router.route(endpoint.path)[endpoint.type](endpoint.handler);
-            });
-            this.express.use(`/${EndPointInitialPath}`, this.router);
-
-
-        } else {
-            throw new Error("Server.addRoute([ error ]) Express not initialized");
-        }
+        if (!this.initialized) throw new Error("Server.addRoute([ error ]) Express not initialized");
+        endpoints.forEach((endpoint: EndPointControllerBase) => {
+            const { middlewares } = endpoint ;
+            /* debug */ logger(`Server.addRoute([+])`, `${endpoint.type.toUpperCase()} //${this.options.host}:${this.options.port}/${EndPointInitialPath}${endpoint.path}`);
+            this.router.route(endpoint.path)[endpoint.type]( ... middlewares, endpoint.handler );
+        });
+        this.express.use(`/${EndPointInitialPath}`, this.router);
     }
     private create(): void {
         if (!this._express) this._express = express();

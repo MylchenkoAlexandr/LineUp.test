@@ -1,6 +1,6 @@
 import {Express} from "express"
 import {TConfig, TDatabaseOptions, TEndPointHandler, TEndPointRequirements, TEndPoints, TServerOptions} from "../types";
-import {EndPointType} from "../constants";
+import {RequestMethodTypes} from "../constants";
 import {Mongoose} from "mongoose";
 
 export interface IConfig {
@@ -20,13 +20,13 @@ export interface IServer {
     readonly initialized: boolean;
 
     init(options: TServerOptions): void;
-
     addRoute(endpoint: TEndPoints): void;
 }
 export interface IEndPointController {
-    readonly type: EndPointType;
+    readonly type: RequestMethodTypes;
     readonly path: string;
     handler: TEndPointHandler;
+    middlewares?: TEndPointHandler[] ;
 
     create(args: TEndPointRequirements): IEndPointController;
 }

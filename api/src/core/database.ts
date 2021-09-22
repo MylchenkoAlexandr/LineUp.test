@@ -11,8 +11,7 @@ export default class Database implements IDatabase {
     }
 
     constructor() {
-        /* debug */
-        logger("Database", this);
+        /* debug */ logger("Database()", this);
     }
 
     private _mongoose: Mongoose;
@@ -32,15 +31,10 @@ export default class Database implements IDatabase {
 
 
     public init(options: TDatabaseOptions): void {
-        /* debug */
-        logger("Database.init([ options ])", options);
-
         this._options = options;
         try {
             this.create(options)
                 .then((value) => {
-                    /* debug */
-                    logger(`Database.init([ value ])`, value);
                     this._initialized = true;
                     this._mongoose = value;
 
@@ -48,7 +42,7 @@ export default class Database implements IDatabase {
                 })
                 .catch((message) => {
                     /* debug */
-                    logger(`Database.init([ message ])`, message);
+                    logger(`Database [ error ]`, message);
                     this._initialized = false;
                     options.callback(message);
                 });

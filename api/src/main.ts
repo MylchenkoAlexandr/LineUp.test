@@ -9,7 +9,7 @@ function bootstrap(): void {
 
     const cfg = Config.singleton();
     cfg.init();
-    if (!cfg.initialized) return logger("Wrong config");
+    if (!cfg.initialized) return ;
 
     const dbOptions: TDatabaseOptions = {
         url: cfg.config.databaseUrl,
