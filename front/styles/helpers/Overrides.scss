@@ -1,0 +1,52 @@
+.ant-alert {
+  @include setFlex(row, flex-start, center) ;
+  border-radius: $default-border-radius;
+  padding: $default-offset-a;
+  background: $color-red !important;
+  border: 1px solid $color-red-a !important;
+
+  & > * {
+    @include setFlex(row, flex-start, center)
+  }
+
+  & .ant-alert-message {
+    color: $color-white !important;
+    font-weight: bolder;
+    text-transform: uppercase;
+  }
+}
+
+.ant-spin-nested-loading,
+.ant-spin-container {
+  @include setFlex(column) ;
+  width: 100%;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  list-style: none;
+
+  li {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.ant-notification-notice.warning {
+  background-color: $color-yellow ;
+  .ant-notification-notice-description {
+    color: $color-white ;
+  }
+}
+.ant-notification-notice.error {
+  background-color: $color-red ;
+
+  .ant-notification-notice-message {
+    color: $color-white ;
+  }
+  .ant-notification-notice-description {
+    color: $color-white ;
+  }
+}

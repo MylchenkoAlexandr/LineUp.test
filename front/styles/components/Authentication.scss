@@ -1,0 +1,17 @@
+.Authentication {
+  @include setFlex( column, center, center ) ;
+  width: 100% ;
+  height: 100% ;
+
+  &> .wrapper {
+    @include setFlex( column, center, center ) ;
+    @include setFilledBackground( "/static/texture-background-light.png", 5px, rgba( $color-gray, $default-half ));
+    border-radius: $default-border-radius;
+    padding: $default-offset-a;
+    width: 20em ;
+    box-shadow: $default-shadow ;
+    &> *:not(:last-child) {
+      margin-bottom: $default-offset-a ;
+    }
+  }
+}

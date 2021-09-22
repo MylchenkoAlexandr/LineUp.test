@@ -1,0 +1,23 @@
+.Section {
+  @include setFlex( column, flex-start, center ) ;
+  @include setFilledBackground( '/static/texture-background-light.png', 5px, $color-white );
+  width: 100% ;
+  box-shadow: $default-shadow ;
+
+  &[data-type="wide"] > .wrapper {
+    max-width: 1920px ;
+    width: calc( 100% - ( #{ $default-offset-a * 2 } ) ) ;
+  }
+  &[data-type="half"] > .wrapper {
+    max-width: 1920px ;
+    width: 85% ;
+  }
+}
+
+@include setScreenWidth(1360px) {
+  .Section {
+    &[data-type="half"] > .wrapper {
+      width: 100% ;
+    }
+  }
+}

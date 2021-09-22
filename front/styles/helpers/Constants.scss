@@ -1,0 +1,43 @@
+$default-blur: 10px ;
+$default-font-size: 16px ;
+$default-font-size-a: 14px ;
+$default-width-max: 1360px ;
+$default-border-radius: 3px ;
+$default-half: .5 ;
+$default-half-a: 5% ;
+$default-font-family: Tahoma, sans-serif ;
+$default-font-family-a: "Jost", sans-serif ;
+$default-font-family-b: "yoga-font", sans-serif ;
+$default-font-family-c: "Oswald", sans-serif ;
+$default-offset-a: 1em ;
+$default-offset-b: calc( #{ $default-offset-a } / 2 ) ;
+$default-offset-c: calc( #{ $default-offset-b } / 2 ) ;
+
+$default-mobile-width-a: 320px ;
+$default-background-color: #e7e7e7;
+$section-header-menu-limit-width: 42em ;
+
+$color-white: white ;
+$color-black: black ;
+$color-dark-gray: #555555;
+$color-dark-gray-a: darken( $color-dark-gray, $default-half-a ) ;
+$color-dark-gray-b: darken( $color-dark-gray-a, $default-half-a ) ;
+$color-gray: #ededed ;
+$color-gray-a: darken( $color-gray, $default-half-a ) ;
+$color-gray-b: darken( $color-gray-a, $default-half-a ) ;
+$color-red: #bb002c;
+$color-red-a: darken( $color-red, $default-half-a ) ;
+$color-red-b: darken( $color-red-a, $default-half-a ) ;
+$color-yellow: #fe9a00;
+$color-yellow-a: #fe5000;
+$color-green-light: #4bd900;
+$color-green: #328e00;
+$color-green-a: darken( $color-green, $default-half-a ) ;
+
+$color-blue-light: #4b9bff;
+$color-blue: #187ae4 ;
+$color-velvet: #ca009f ;
+$color-brown: #442900;
+
+$default-shadow: 0 2px 2px rgba( $color-black, .15 ) ;
+$default-shadow-a: inset 0 1px 1px rgba( $color-black, .15 ) ;

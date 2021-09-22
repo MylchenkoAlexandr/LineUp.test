@@ -16,7 +16,7 @@ export default class Controller extends EndPointControllerBase {
             const { username, password } = req.body ;
             const _username = username.toLowerCase() ;
             const user = await this.isUserExists( _username, password ) ;
-            const token = this.createAccessToken( user ) ;
+            const token:string = this.createAccessToken( user ) ;
             const payload:TResponseSuccess = {
                 success: true,
                 data: { token }
@@ -35,6 +35,7 @@ export default class Controller extends EndPointControllerBase {
     private validate = ( data: object ): boolean => {
         const error = validate( data, dto ) ;
         if( error ) throw new Error( parseDtoError( error ) ) ;
+
         return true ;
     }
     private isUserExists = async ( username, password ):Promise<object> => {
@@ -50,8 +51,8 @@ export default class Controller extends EndPointControllerBase {
         const { secret, sessionTimeout:expiresIn } = Config.singleton().config ;
         const id:string = get( user, "id", null );
         if( !id ) throw new Error("Wrong user metadata")
-        const token:string = createSessionJWTToken({id}, secret, { expiresIn });
+        const accessToken:string = createSessionJWTToken({id}, secret, { expiresIn });
 
-        return token ;
+        return accessToken ;
     }
 }

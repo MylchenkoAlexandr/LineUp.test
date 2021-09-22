@@ -1,0 +1,98 @@
+@mixin setFlex( $flex-direction: column, $justify-content: flex-start, $align-items: flex-start ) {
+  display: flex ;
+  flex-direction: $flex-direction ;
+  justify-content: $justify-content ;
+  align-items: $align-items ;
+}
+@mixin disableTextSelection() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@mixin setMenuItem( $background-color, $color, $border ) {
+  $border-color-darken: darken( $border, $default-half ) ;
+
+  @include disableTextSelection() ;
+  cursor: pointer ;
+  padding: $default-offset-b $default-offset-a ;
+  color: $color ;
+
+  &[data-selected] {
+    margin-left: $default-offset-c ;
+    font-weight: bolder;
+    border: 1px solid transparent ;
+  }
+  &[data-selected="true"] {
+    border-radius: $default-border-radius ;
+    background: $background-color ;
+    @include fillBackgroundStripes( 4px, $background-color, $border ) ;
+    color: $color-white ;
+    box-shadow: $default-shadow;
+  }
+  &:hover[data-selected="false"] {}
+}
+@mixin setButton(
+  $default-background,
+  $default-color,
+  $default-border,
+
+  $selected-background,
+  $selected-color,
+  $selected-border
+) {
+  @include disableTextSelection() ;
+  cursor: pointer ;
+  padding: $default-offset-b $default-offset-a ;
+  color: $default-color ;
+  background: $default-background;
+  border-radius: $default-border-radius ;
+  border: 2px solid $default-border ;
+  //  font-weight: bolder;
+  text-transform: uppercase;
+  text-shadow: $default-shadow;
+  box-shadow: $default-shadow;
+
+  &:hover {
+    //  @include fillBackgroundStripes( 4px, $selected-background ) ;
+    background: $selected-background ;
+    color: $selected-color ;
+    border: 2px solid $selected-border ;
+  }
+}
+@mixin setScreenWidth( $width ) {
+  @media only screen and ( max-width: $width ) {
+    @content;
+  }
+}
+@mixin disableLineBreaks() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@mixin debug() {
+  border: 1px dashed $color-red !important;
+}
+@mixin fillBackgroundStripes( $length: 10px, $color: $color-black, $background: transparent ) {
+  $multiply: calc( #{ $length } * 2 ) ;
+  background: repeating-linear-gradient(
+                  -45deg,
+                  $color,
+                  $color $length,
+                  $background $length,
+                  $background $multiply
+  );
+}
+@mixin setFixedBackground( $url, $type: scroll ) {
+  background-image: url($url) ;
+  background-position: center center ;
+  background-repeat: no-repeat ;
+  background-size: cover ;
+  background-attachment: $type ;
+}
+@mixin setFilledBackground( $url, $size, $color ) {
+  background: url( $url ) repeat fixed $color ;
+  background-size: $size ;
+}

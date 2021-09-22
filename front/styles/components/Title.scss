@@ -1,0 +1,26 @@
+$title-half: 1.15 ;
+
+.Title {
+  @include setFlex( row, flex-start, center ) ;
+  @include disableLineBreaks() ;
+  margin: 0 ;
+  text-transform: uppercase ;
+  font-weight: bolder;
+}
+.Title.small {
+  font-size: calc( #{ $default-font-size } * #{ $title-half } ) ;
+}
+.Title.middle {
+  font-size: calc( #{ $default-font-size } * ( #{ $title-half } * 1.75 ) ) ;
+}
+.Title.large {
+  font-size: calc( #{ $default-font-size } * ( #{ $title-half } * 2.5 ) ) ;
+}
+
+@include setScreenWidth( $section-header-menu-limit-width ) {
+  .Title {
+    font-size: $default-offset-a ;
+    padding-left: 0 ! important ;
+    padding-right: 0 ! important ;
+  }
+}
