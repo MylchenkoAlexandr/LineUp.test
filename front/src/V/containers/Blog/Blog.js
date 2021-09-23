@@ -6,6 +6,7 @@ import {bindActionCreators} from "redux";
 import {getPosts} from "../../../M/redux/actions/blog.actions";
 import {Spin} from 'antd';
 import BlogShortPost from './BlogShortPost';
+import Paginator from './Paginator';
 
 @connect(
     ({blog}) => ({store: {blog}}),
@@ -35,7 +36,7 @@ export default class Blog extends Component {
                     }
                 </Section>
                 <Section key="paginator" className="paginator" type={Section.types.HALF}>
-                    paginator
+                    <Paginator { ... paginator } onChange={ this.events.onPaginator }/>
                 </Section>
             </div>
         )
@@ -53,6 +54,10 @@ export default class Blog extends Component {
         },
         onRemovePost: (id) => {
             /* debug */ Logger.log(Blog.name, "events.onRemovePost([id])", id);
+        },
+        onPaginator: ( pageNo ) => {
+            const {actions: {getPosts}} = this.props;
+            getPosts(pageNo);
         }
     }
 }
