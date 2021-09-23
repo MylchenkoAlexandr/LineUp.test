@@ -6,7 +6,7 @@ import validate from "validate.js";
 import Config from "../../../../core/config";
 import dto from "./dto";
 import UserModel from "../../../../models/database/user.model";
-import {TResponseSuccess, TResponseFailed} from "../../../../types";
+import {TResponseSuccess, TResponseFailed,TUserData} from "../../../../types";
 
 export default class Registration extends EndPointControllerBase {
     public handler = async (req: Request, res: Response):Promise<void> => {
@@ -17,17 +17,22 @@ export default class Registration extends EndPointControllerBase {
             const _username = username.toLowerCase() ;
 
             await this.isUserExists( _username ) ;
-            await this.createUser( _username, password ) ;
+
+            const user: TUserData = {
+                username: _username,
+                password
+            }
+            await this.createUser( user ) ;
 
             const payload:TResponseSuccess = {
-                success: true,
-                data: null
+                status: true,
+                payload: null
             }
             res.status(HttpStatusCodes.CREATED).json(payload);
 
         } catch ({message}) {
             const payload: TResponseFailed = {
-                success: false,
+                status: false,
                 error: { message }
             }
             res.status(HttpStatusCodes.FORBIDDEN).json(payload);
@@ -44,10 +49,10 @@ export default class Registration extends EndPointControllerBase {
         if( user ) throw new Error("User is exists") ;
         return Promise.resolve(true);
     }
-    private createUser = async ( username, password ):Promise<void> => {
+    private createUser = async ( data:TUserData ):Promise<void> => {
         const { secret } = Config.singleton().config ;
-        const hash = createHash( `${ username }${ password }`, secret )
-        const user = new UserModel({ username, hash });
+        const hash = createHash( `${ data.username }${ data.password }`, secret )
+        const user = new UserModel({ username: data.username, hash });
         await user.save();
     }
 }

@@ -6,7 +6,6 @@ export type TCustomException = Error | string | any;
 export type TErrorMessage = {
     message: string | null
 }
-
 export type TConfig = {
     env: string;
     databaseUrl: string;
@@ -32,11 +31,19 @@ export type TEndPointRequirements = {
 }
 export type TEndPoints = IEndPointController[];
 export type TResponseSuccess = {
-    success: boolean;
-    data: any | null
+    status: boolean;
+    payload: any | null
 }
-
 export type TResponseFailed = {
-    success: boolean;
+    status: boolean;
     error: TErrorMessage
+}
+export type TUserData = {
+    username: string;
+    password: string;
+}
+export type TBlogPostData = {
+    title: string;
+    content: string;
+    dateCreated: number;
 }

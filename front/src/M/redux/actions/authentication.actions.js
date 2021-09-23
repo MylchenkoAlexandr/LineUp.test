@@ -15,11 +15,9 @@ export const authenticator = ({ username, password }) => async ( dispatch ) => {
         dispatch({ type: ActionTypes.AUTHENTICATION_LOADING } ) ;
 
         const { data } = await request.post("/authentication", { username, password } ) ;
-        const store = LocalStorage(TOKEN_STORE_KEY);
-        const token = get( data, "data.token", null );
+        const token = get( data, "payload.token", null );
 
-        store.setState(token);
-        dispatch({ type: ActionTypes.AUTHENTICATION_GET } ) ;
+        dispatch({ type: ActionTypes.AUTHENTICATION_GET, data: { token } } ) ;
 
     } catch ({ message }) {
         dispatch({ type: ActionTypes.AUTHENTICATION_ERROR } ) ;

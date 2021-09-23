@@ -1,7 +1,7 @@
 import {RequestMethodTypes} from "../../../../constants";
-import AuthenticationPostCtrl from "./controller";
+import Controller from "./controller";
 
-const instance = new AuthenticationPostCtrl();
+const instance = new Controller();
 instance.create({
     type: RequestMethodTypes.POST,
     path: '/authentication'

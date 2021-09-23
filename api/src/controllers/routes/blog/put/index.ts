@@ -4,8 +4,8 @@ import AuthenticationMiddleware from "../../../../middlewares/authentication.mid
 
 const instance = new Controller();
 instance.create({
-    type: RequestMethodTypes.POST,
-    path: '/blog',
+    type: RequestMethodTypes.PUT,
+    path: '/blog/:id',
     middlewares: [
         AuthenticationMiddleware
     ]

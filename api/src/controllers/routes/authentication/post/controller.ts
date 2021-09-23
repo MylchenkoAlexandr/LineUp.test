@@ -17,16 +17,16 @@ export default class Controller extends EndPointControllerBase {
             const _username = username.toLowerCase() ;
             const user = await this.isUserExists( _username, password ) ;
             const token:string = this.createAccessToken( user ) ;
-            const payload:TResponseSuccess = {
-                success: true,
-                data: { token }
+            const data:TResponseSuccess = {
+                status: true,
+                payload: { token }
             } ;
 
-            res.status(HttpStatusCodes.OK).json( payload );
+            res.status(HttpStatusCodes.OK).json( data );
 
         } catch ({message}) {
             const payload: TResponseFailed = {
-                success: false,
+                status: false,
                 error: { message }
             }
             res.status(HttpStatusCodes.FORBIDDEN).json(payload);

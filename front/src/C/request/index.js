@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { has } from "lodash";
-import {TOKEN_STORE_KEY} from "../../C/common/Constants";
+import {TOKEN_STORE_KEY, TOKEN_PREFIX} from "../../C/common/Constants";
 import LocalStorage from "../../C/common/LocalStorage";
 import Notification from "../../C/common/Notification";
 
@@ -12,7 +12,7 @@ const create = () => {
         const store = LocalStorage( TOKEN_STORE_KEY );
         const token = store.getState() ;
 
-        if( token ) { config.headers.Authorization = token }
+        if( token ) { config.headers.Authorization = `${ TOKEN_PREFIX } ${ token }` }
 
         return config ;
     }) ;

@@ -28,7 +28,7 @@ const AuthenticationMiddleware = (req: Request, res: Response, next: NextFunctio
 
     } catch ({ message }) {
         const payload: TResponseFailed = {
-            success: false,
+            status: false,
             error: { message }
         }
         res.status(HttpStatusCodes.UNAUTHORIZED).json(payload);
