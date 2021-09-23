@@ -13,19 +13,17 @@ export default class Controller extends EndPointControllerBase {
         try {
             this.validate( req.body ) ;
             const post: TBlogPostData = {
+                userId: get( req, "user.id" ),
                 title: get( req.body, "title", "" ),
                 content: get( req.body, "content", "" ),
                 dateCreated: Date.now()
             }
             const payload:object = await this.createPost( post );
-
-            /* debug */ logger("Controller([ payload ])", payload ) ;
-
             const data: TResponseSuccess = {
                 status: true,
                 payload
             } ;
-            res.status(HttpStatusCodes.OK).json( data );
+            res.status(HttpStatusCodes.CREATED).json( data );
 
         } catch ({message}) {
             const payload: TResponseFailed = {
@@ -43,7 +41,6 @@ export default class Controller extends EndPointControllerBase {
     private createPost = async ( data: TBlogPostData ):Promise<object> => {
         const model = new BlogModel(data);
         const post = await model.save();
-        /* debug */ logger("Controller.createPost([ post ])", post ) ;
         return post.toObject() ;
     }
 }

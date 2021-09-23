@@ -1,0 +1,26 @@
+.BlogPost {
+  flex: 1 ;
+  &> .wrapper {
+    height: 100vh ;
+    & .Section {
+      margin-bottom: $default-offset-b;
+      padding: $default-offset-a ;
+      background: none!important;
+      box-shadow: none!important;
+    }
+    &> .menu {
+      &> .wrapper > button {
+        margin-right: $default-offset-b ;
+      }
+    }
+    &> .content {
+      flex: 1;
+      height: 100%;
+      padding: 0 $default-offset-a ;
+      &> .wrapper > *:not(:last-child) {
+        margin-bottom: $default-offset-b;
+      }
+    }
+  }
+
+}

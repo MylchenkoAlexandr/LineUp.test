@@ -32,11 +32,11 @@ export type TEndPointRequirements = {
 export type TEndPoints = IEndPointController[];
 export type TResponseSuccess = {
     status: boolean;
-    payload: any | null
+    payload: any | null;
 }
 export type TResponseFailed = {
     status: boolean;
-    error: TErrorMessage
+    error: TErrorMessage;
 }
 export type TUserData = {
     username: string;
@@ -45,5 +45,6 @@ export type TUserData = {
 export type TBlogPostData = {
     title: string;
     content: string;
-    dateCreated: number;
+    userId: string;
+    dateCreated?: number;
 }

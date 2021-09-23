@@ -1,7 +1,7 @@
 import EndPointControllerBase from "../../../../base/EndPointControllerBase";
 import HttpStatusCodes from "http-status-codes";
 import {Request, Response} from "express";
-import {first} from "lodash";
+import {first,get} from "lodash";
 import {TResponseFailed, TResponseSuccess} from "../../../../types";
 import {logger, parseDtoError} from "../../../../helpers";
 import dto from "./dto";
@@ -12,9 +12,9 @@ import { BlogRecordsLimit } from "../../../../constants";
 export default class Controller extends EndPointControllerBase {
     public handler = async (req: Request, res: Response): Promise<void> => {
         try {
-            console.clear();
             this.validate( req.params ) ;
-            const data:object = await this.paginator(+req.params.page);
+            const userId:string = get( req, "user.id" );
+            const data:object = await this.paginator(userId, +req.params.page);
             const payload:TResponseSuccess = {
                 status: true,
                 payload: data
@@ -34,12 +34,12 @@ export default class Controller extends EndPointControllerBase {
         if( error ) throw new Error( parseDtoError( error ) ) ;
         return true ;
     }
-    private paginator = async ( page: number):Promise<object> => {
+    private paginator = async ( userId:string, page: number):Promise<object> => {
         const limit:number = BlogRecordsLimit;
         const offset:number = ( page - 1 ) * limit ;
 
         const query = [] ;
-        query.push({ $match: {} });
+        query.push({ $match: { userId } });
         query.push({ $sort: { dateCreated: -1 } });
         query.push({ $facet: {
             paginator: [

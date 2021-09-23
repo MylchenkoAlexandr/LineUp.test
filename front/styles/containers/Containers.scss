@@ -9,6 +9,7 @@ body {
   height: 100% ;
   margin: 0 ;
   padding: 0 ;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar-corner,
@@ -17,9 +18,9 @@ body {
 ::-webkit-scrollbar {
   width: 6px ;
   height: 6px ;
-  background: $color-red ;
+  background: $color-blue ;
 }
-::-webkit-scrollbar-thumb { background: $color-red }
+::-webkit-scrollbar-thumb { background: $color-blue }
 
 @include setScreenWidth( $section-header-menu-limit-width ) {
   div, p, {

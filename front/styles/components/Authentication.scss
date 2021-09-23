@@ -1,8 +1,7 @@
 .Authentication {
   @include setFlex( column, center, center ) ;
   width: 100% ;
-  height: 100% ;
-
+  height: 100vh;
   &> .wrapper {
     @include setFlex( column, center, center ) ;
     @include setFilledBackground( "/static/texture-background-light.png", 5px, rgba( $color-gray, $default-half ));

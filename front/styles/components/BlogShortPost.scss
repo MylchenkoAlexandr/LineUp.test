@@ -1,0 +1,37 @@
+.BlogShortPost {
+  @include setFlex(column);
+  margin-bottom: $default-offset-b ;
+  background-color: $color-white ;
+  border-radius: $default-border-radius ;
+  box-shadow: $default-shadow;
+  width: 99% ;
+  &> .wrapper {
+    padding: $default-offset-a ;
+    overflow: hidden auto ;
+    width: 100% ;
+    &> .header {
+      @include setFlex(row, space-between, center );
+      width: 100% ;
+      &> .title {
+        @include setFlex(row);
+        flex: 1 ;
+        color: $color-blue ;
+        text-transform: uppercase;
+      }
+      &> .dateCreated {
+        margin-right: $default-offset-a;
+      }
+    }
+    &> .content {
+      @include setFlex(row, space-between, center);
+      font-size: 75% ;
+    }
+    &> .actions {
+      @include setFlex(row, flex-end, center);
+      &> button {
+        margin-left: $default-offset-b;
+        box-shadow: $default-shadow;
+      }
+    }
+  }
+}

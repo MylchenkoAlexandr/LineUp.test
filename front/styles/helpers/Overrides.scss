@@ -42,11 +42,31 @@ ul {
 }
 .ant-notification-notice.error {
   background-color: $color-red ;
-
   .ant-notification-notice-message {
     color: $color-white ;
   }
   .ant-notification-notice-description {
     color: $color-white ;
+  }
+}
+.ant-notification-notice.success {
+  background-color: $color-green ;
+  .ant-notification-notice-message {
+    color: $color-white ;
+  }
+  .ant-notification-notice-description {
+    color: $color-white ;
+  }
+}
+
+.ant-spin {
+  @include setFlex( column, center, center );
+  width: 100% ;
+  height: 100% ;
+  &> .ant-spin-dot {
+    overflow: hidden;
+    margin: 0 auto;
+    vertical-align: middle;
+    top: 50%;
   }
 }

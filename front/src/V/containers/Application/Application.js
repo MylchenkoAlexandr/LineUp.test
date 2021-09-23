@@ -4,11 +4,14 @@ import {TOKEN_STORE_KEY} from "../../../C/common/Constants";
 import LocalStorage from "../../../C/common/LocalStorage";
 import Authentication from "../../components/Authentication";
 import Blog from "../Blog";
+import BlogPost from "../BlogPost";
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import {authenticator} from "../../../M/redux/actions/authentication.actions";
-import { Router, Route, Switch, Redirect, withRouter } from "react-router-dom";
+import {Route, Router, Switch} from "react-router-dom";
 import {createBrowserHistory} from 'history'
+
+const history = createBrowserHistory();
 
 @connect(
     ({ authentication }) => ({ store:{ authentication } }),
@@ -40,11 +43,11 @@ export default class Application extends Component {
             )
         },
         router: () => {
-            const history = createBrowserHistory()
             return (
                 <Router history={history}>
                     <Switch>
-                        <Route path='/' component={Blog} />
+                        <Route exact path="/" component={Blog} />
+                        <Route path="/post/:id" component={BlogPost}  />
                     </Switch>
                 </Router>
             )
