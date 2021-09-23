@@ -1,35 +1,37 @@
-# Test task for Fullstack (React + NodeJS) position
+# front:
+* javascript
+* redux
+* ant-design
 
-**description**: Let’s build simple CRUD blog app
+# api (back-end):
+* type-script
+* express
+* mongdb
 
-## Requirements
-**Frontend**:
-- Setup new react app from scratch (with linters and all what you need)
-- Setup React-redux state management
-- Setup React-router-dom routing
-- Use AXIOS for handling API requests
-- You choose app styling way (css, scss, styled-components, etc...), but  
-  not focus on this too much
+## routes:
+POST //localhost:7777/api/authentication  
+`{ username:String, password: String }`  
 
-**Backend**:
-- Setup NodeJS + express server, connect with React frontend
-- Setup MongoDB connection
-- Server should use REST API architecture
+POST //localhost:7777/api/registration  
+`{ username:String, password: String }`  
 
-**Optional**:
-- If you know TypeScript, all must be written in TS
-- Authorization  
+GET //localhost:7777/api/blog/:page  
+`{ page:Number }`  
 
-**Your app must have next functions**:
-- Show maximum 10 blog posts on main page
-- Each post must be a link, which opens detailed article info on route /post/:id, and also have back to main button
-- Add new post with popup (modal) from main page
-- Update post from /post/:id route
-- Delete post
+POST //localhost:7777/api/blog  
+`{ title:String, content: String }`  
 
-App must be deployed at any way what you want  
-Source code must have public Github repository  
-When you finish your app, send please 2 links, one for deploy one for  
-repository source code
+PUT //localhost:7777/api/blog  
+`{ _id:String, title:String, content: String }`
 
-Good luck :)
+DELETE //localhost:7777/api/blog/:id  
+`{ id:String }`
+
+# accounts for test:
+`1`  
+**username**: 1@lineup.com  
+**password**: 111111  
+
+`2`  
+**username**: 2@lineup.com  
+**password**: 222222  
