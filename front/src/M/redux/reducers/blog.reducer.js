@@ -16,6 +16,11 @@ export default ( state={ ... model }, action ) => {
 		case ActionTypes.BLOG_ERROR: {
 			return { ... state, fetching: false, status: false } ;
 		}
+		case ActionTypes.BLOG_CREATE: {
+			const _data = deepClone(state.data);
+			_data.unshift(data);
+			return { ... state, data: _data, fetching: false, status: true } ;
+		}
 		case ActionTypes.BLOG_UPDATED: {
 			const _state = deepClone(state);
 			const foundIndex = findIndex(_state.data, element => element._id === data._id)

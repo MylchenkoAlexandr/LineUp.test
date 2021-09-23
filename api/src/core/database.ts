@@ -10,9 +10,7 @@ export default class Database implements IDatabase {
         return _instance;
     }
 
-    constructor() {
-        /* debug */ logger("Database()", this);
-    }
+    constructor() {}
 
     private _mongoose: Mongoose;
     public get mongoose(): Mongoose {
@@ -41,8 +39,7 @@ export default class Database implements IDatabase {
                     options.callback();
                 })
                 .catch((message) => {
-                    /* debug */
-                    logger(`Database [ error ]`, message);
+                    /* debug */ logger(`Database [ error ]`, message);
                     this._initialized = false;
                     options.callback(message);
                 });

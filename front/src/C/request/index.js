@@ -1,6 +1,7 @@
 import Axios from "axios";
 import { has } from "lodash";
 import {TOKEN_STORE_KEY, TOKEN_PREFIX} from "../../C/common/Constants";
+import {logout} from "../../C/common/Utils";
 import LocalStorage from "../../C/common/LocalStorage";
 import Notification from "../../C/common/Notification";
 import Logger from "../common/Logger";
@@ -31,10 +32,7 @@ const create = () => {
         ( error ) => {
 
             if( error.response.status === 401 ) {
-                setTimeout( () => {
-                    store.clear() ;
-                    window.location.href = "/";
-                }, 2000 ) ;
+                setTimeout( logout, 2000 ) ;
             }
             if( has( error, "response.data.error" ) ) {
                 const { message } = error.response.data.error ;

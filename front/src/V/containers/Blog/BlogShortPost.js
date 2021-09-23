@@ -21,7 +21,6 @@ export default class BlogShortPost extends Component {
 
     constructor( props ) {
         super( props );
-        /* debug */ Logger.info( BlogShortPost.name, null, this ) ;
     }
     render() {
         const { data } = this.props ;

@@ -14,7 +14,6 @@ export default class Paginator extends Component {
 
     constructor(props) {
         super(props);
-        /* debug */ Logger.info(Paginator.name, null, this);
     }
     render() {
         const {total, page, limit, onChange} = this.props;

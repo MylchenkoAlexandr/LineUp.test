@@ -13,9 +13,7 @@ export default class Server implements IServer {
         return _instance;
     }
 
-    constructor() {
-        /* debug */ logger("Server()", this);
-    }
+    constructor() {}
 
     private _express: Express;
     public get express(): Express {

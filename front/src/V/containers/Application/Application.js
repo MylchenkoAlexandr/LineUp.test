@@ -20,7 +20,6 @@ const history = createBrowserHistory();
 export default class Application extends Component {
     constructor( props ) {
         super( props );
-        /* debug */ Logger.info( Application.name, null, this ) ;
     }
     render() {
         const token = this.controller.getSessionToken() ;
@@ -62,7 +61,6 @@ export default class Application extends Component {
     events = {
         onSignIn: ({ username, password }) => {
             const { actions:{ authenticator } } = this.props ;
-            /* debug */ Logger.info( Application.name, "events.onSignIn([ username, password ])", username, password ) ;
             authenticator({ username, password }) ;
         }
     }

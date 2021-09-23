@@ -35,7 +35,6 @@ export default class Controller extends EndPointControllerBase {
         return true ;
     }
     private removePost = async ( _id:string ):Promise<object> => {
-        /* debug */ logger( "removePost", _id );
         const post = await BlogModel.findOneAndDelete( { _id }, { new: true } ) ;
         return post as object ;
     }

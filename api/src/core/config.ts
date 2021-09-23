@@ -10,9 +10,7 @@ export default class Config implements IConfig {
         return _instance;
     }
 
-    constructor() {
-        /* debug */ logger("Config()", this);
-    }
+    constructor() {}
 
     private _config: TConfig;
     public get config(): TConfig {

@@ -1,33 +1,39 @@
 import React, {Component} from "react";
-import Logger from "../../../C/common/Logger";
+import {logout} from "../../../C/common/Utils";
 import Section from "../../components/Section";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getPosts, removePost} from "../../../M/redux/actions/blog.actions";
+import {getPosts, removePost, createPost} from "../../../M/redux/actions/blog.actions";
 import {Button, Spin} from 'antd';
 import BlogShortPost from './BlogShortPost';
 import Paginator from './Paginator';
+import BlogCreatePost from './BlogCreatePost';
 import {PlusCircleFilled} from '@ant-design/icons';
 
 @connect(
     ({blog}) => ({store: {blog}}),
-    (dispatch) => ({actions: bindActionCreators({getPosts, removePost}, dispatch)})
+    (dispatch) => ({actions: bindActionCreators({getPosts, removePost, createPost}, dispatch)})
 )
 export default class Blog extends Component {
     static defaultProps = {}
     static propTypes = {}
 
+    state = {
+        hasCreatePostVisible: false
+    }
     constructor(props) {
         super(props);
-        /* debug */ Logger.info(Blog.name, null, this);
     }
     render() {
-        const {store: {blog}} = this.props;
+        const {store: {blog}, actions:{ createPost }} = this.props;
+        const {hasCreatePostVisible} = this.state;
         const {data, paginator, status, fetching} = blog;
         return (
             <div className="Blog">
+                <BlogCreatePost visible={ hasCreatePostVisible } onClose={ this.events.onCreatePostModalTrigger } onCreate={ createPost }/>
                 <Section key="menu" className="menu" type={Section.types.HALF}>
-                    <Button type="primary" disabled={ ! status || fetching } icon={<PlusCircleFilled />}>CREATE</Button>
+                    <Button type="primary" disabled={ ! status || fetching } icon={<PlusCircleFilled />} onClick={ this.events.onCreatePostModalTrigger }>CREATE</Button>
+                    <Button type="ghost" onClick={ logout }>LOGOUT</Button>
                 </Section>
                 <Section key="content" className="content" type={Section.types.HALF}>
                     <Spin spinning={fetching}>
@@ -48,7 +54,6 @@ export default class Blog extends Component {
     events = {
         onShowPost: (id) => {
             const { history } = this.props ;
-            /* debug */ Logger.log(Blog.name, "events.onShowPost([id])", id);
             history.push(`/post/${id}`);
         },
         onRemovePost: (id) => {
@@ -58,6 +63,10 @@ export default class Blog extends Component {
         onPaginator: ( pageNo ) => {
             const {actions: {getPosts}} = this.props;
             getPosts(pageNo);
+        },
+        onCreatePostModalTrigger: () => {
+            const {hasCreatePostVisible} = this.state;
+            this.setState({ hasCreatePostVisible: !hasCreatePostVisible });
         }
     }
 }

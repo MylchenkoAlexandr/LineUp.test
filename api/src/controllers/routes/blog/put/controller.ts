@@ -40,7 +40,6 @@ export default class Controller extends EndPointControllerBase {
         return true ;
     }
     private updatePost = async ( _id:string, data: TBlogPostData ):Promise<object> => {
-        /* debug */ logger( "updatePost", _id, data );
         const post = await BlogModel.findOneAndUpdate( { _id }, { $set: data }, { new: true } ) ;
         return post as object ;
     }

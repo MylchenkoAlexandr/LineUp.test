@@ -16,7 +16,6 @@ import { Input, Spin } from 'antd';
 export default class BlogPost extends Component {
     constructor( props ) {
         super( props );
-        /* debug */ Logger.info( BlogPost.name, null, this ) ;
     }
     render() {
         if( ! this.state ) return (
@@ -48,13 +47,11 @@ export default class BlogPost extends Component {
         getData: () => {
             const { match:{ params:{ id: _id } }, store:{ blog:{ data } } } = this.props ;
             const post = find( data || [], { _id } );
-            /* debug */ Logger.log( BlogPost.name, "controller.getData([ post ])", post ) ;
             return post ;
         }
     }
     events = {
         onChange: ( id ) => ({ target:{ value } }) => {
-            /* debug */ Logger.log( BlogPost.name, "controller.onChange([ id, value ])", id, value ) ;
             this.setState({[id]:value});
         },
         onSave: () => {

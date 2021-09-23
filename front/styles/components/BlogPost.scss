@@ -3,14 +3,14 @@
   &> .wrapper {
     height: 100vh ;
     & .Section {
-      margin-bottom: $default-offset-b;
       padding: $default-offset-a ;
       background: none!important;
       box-shadow: none!important;
     }
     &> .menu {
-      &> .wrapper > button {
-        margin-right: $default-offset-b ;
+      &> .wrapper {
+        display: flex;
+        justify-content: space-between;
       }
     }
     &> .content {
