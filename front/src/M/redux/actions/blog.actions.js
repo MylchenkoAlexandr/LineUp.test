@@ -1,5 +1,4 @@
 import request from "../../../C/request";
-import Logger from "../../../C/common/Logger";
 import Notification from "../../../C/common/Notification";
 
 export const ActionTypes = {
@@ -11,62 +10,62 @@ export const ActionTypes = {
     BLOG_ERROR: 'blog.error',
 }
 
-export const getPosts = ( page = 1 ) => async ( dispatch ) => {
+export const getPosts = (page = 1) => async (dispatch) => {
     try {
-        dispatch({ type: ActionTypes.BLOG_LOADING } ) ;
+        dispatch({type: ActionTypes.BLOG_LOADING});
 
-        const { data } = await request.get(`/blog/${ page }`) ;
-        const { payload } = data ;
+        const {data} = await request.get(`/blog/${page}`);
+        const {payload} = data;
 
-        dispatch({ type: ActionTypes.BLOG_GET, data: payload } ) ;
+        dispatch({type: ActionTypes.BLOG_GET, data: payload});
 
-    } catch ({ message }) {
-        dispatch({ type: ActionTypes.BLOG_ERROR } ) ;
+    } catch ({message}) {
+        dispatch({type: ActionTypes.BLOG_ERROR});
     }
 }
-export const updatePost = ({ _id, title, content }) => async ( dispatch ) => {
+export const updatePost = ({_id, title, content}) => async (dispatch) => {
     try {
-        dispatch({ type: ActionTypes.BLOG_LOADING } ) ;
+        dispatch({type: ActionTypes.BLOG_LOADING});
 
-        const { data } = await request.put("/blog", { _id, title, content }) ;
-        const { payload } = data ;
+        const {data} = await request.put("/blog", {_id, title, content});
+        const {payload} = data;
 
-        dispatch({ type: ActionTypes.BLOG_UPDATED, data: payload } ) ;
+        dispatch({type: ActionTypes.BLOG_UPDATED, data: payload});
 
-        Notification({title:"UPDATE", message:"Record updated!", className:"success"})
+        Notification({title: "UPDATE", message: "Record updated!", className: "success"})
 
-    } catch ({ message }) {
-        dispatch({ type: ActionTypes.BLOG_ERROR } ) ;
+    } catch ({message}) {
+        dispatch({type: ActionTypes.BLOG_ERROR});
     }
 }
-export const createPost = ({ title, content }, callback ) => async ( dispatch ) => {
+export const createPost = ({title, content}, callback) => async (dispatch) => {
     try {
-        dispatch({ type: ActionTypes.BLOG_LOADING } ) ;
+        dispatch({type: ActionTypes.BLOG_LOADING});
 
-        const { data } = await request.post("/blog", { title, content }) ;
-        const { payload } = data ;
+        const {data} = await request.post("/blog", {title, content});
+        const {payload} = data;
 
-        dispatch({ type: ActionTypes.BLOG_CREATE, data: payload } ) ;
+        dispatch({type: ActionTypes.BLOG_CREATE, data: payload});
 
-        Notification({title:"NEW RECORD", message:"New post created!", className:"success"}) ;
-        callback && callback() ;
+        Notification({title: "NEW RECORD", message: "New post created!", className: "success"});
+        callback && callback();
 
-    } catch ({ message }) {
-        dispatch({ type: ActionTypes.BLOG_ERROR } ) ;
+    } catch ({message}) {
+        dispatch({type: ActionTypes.BLOG_ERROR});
     }
 }
-export const removePost = ( _id ) => async ( dispatch ) => {
+export const removePost = (_id) => async (dispatch) => {
     try {
-        dispatch({ type: ActionTypes.BLOG_LOADING } ) ;
+        dispatch({type: ActionTypes.BLOG_LOADING});
 
-        const { data } = await request.delete(`/blog/${ _id }`) ;
-        const { payload } = data ;
+        const {data} = await request.delete(`/blog/${_id}`);
+        const {payload} = data;
 
-        dispatch({ type: ActionTypes.BLOG_REMOVED, data: payload } ) ;
+        dispatch({type: ActionTypes.BLOG_REMOVED, data: payload});
 
-        Notification({title:"UPDATE", message:"Record removed!", className:"success"})
+        Notification({title: "UPDATE", message: "Record removed!", className: "success"})
 
-    } catch ({ message }) {
-        dispatch({ type: ActionTypes.BLOG_ERROR } ) ;
+    } catch ({message}) {
+        dispatch({type: ActionTypes.BLOG_ERROR});
     }
 }

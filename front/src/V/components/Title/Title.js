@@ -25,18 +25,16 @@ export default class Title extends Component {
         ])
     }
 
-    constructor( props ) {
-        super( props );
+    constructor(props) {
+        super(props);
     }
     render() {
-        const { text, size, className: _class } = this.props ;
-        const className = ClassNames( "Title", size, _class ) ;
+        const {text, size, className: _class} = this.props;
+        const className = ClassNames("Title", size, _class);
         return (
-            <div className={ className }>
-                { text }
+            <div className={className}>
+                {text}
             </div>
         )
     }
 }
-
-

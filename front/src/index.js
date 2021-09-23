@@ -5,6 +5,6 @@ import "../styles/Main.scss";
 import "antd/dist/antd.css";
 
 ReactDOM.render(
-	<Main />,
-	document.getElementById("root")
+    <Main/>,
+    document.getElementById("root")
 );

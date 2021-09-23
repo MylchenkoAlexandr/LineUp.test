@@ -3,7 +3,7 @@ import {logout} from "../../../C/common/Utils";
 import Section from "../../components/Section";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getPosts, removePost, createPost} from "../../../M/redux/actions/blog.actions";
+import {createPost, getPosts, removePost} from "../../../M/redux/actions/blog.actions";
 import {Button, Spin} from 'antd';
 import BlogShortPost from './BlogShortPost';
 import Paginator from './Paginator';
@@ -25,15 +25,15 @@ export default class Blog extends Component {
         super(props);
     }
     render() {
-        const {store: {blog}, actions:{ createPost }} = this.props;
+        const {store: {blog}, actions: {createPost}} = this.props;
         const {hasCreatePostVisible} = this.state;
         const {data, paginator, status, fetching} = blog;
         return (
             <div className="Blog">
-                <BlogCreatePost visible={ hasCreatePostVisible } onClose={ this.events.onCreatePostModalTrigger } onCreate={ createPost }/>
+                <BlogCreatePost visible={hasCreatePostVisible} onClose={this.events.onCreatePostModalTrigger} onCreate={createPost}/>
                 <Section key="menu" className="menu" type={Section.types.HALF}>
-                    <Button type="primary" disabled={ ! status || fetching } icon={<PlusCircleFilled />} onClick={ this.events.onCreatePostModalTrigger }>CREATE</Button>
-                    <Button type="ghost" onClick={ logout }>LOGOUT</Button>
+                    <Button type="primary" disabled={!status || fetching} icon={<PlusCircleFilled/>} onClick={this.events.onCreatePostModalTrigger}>CREATE</Button>
+                    <Button type="ghost" onClick={logout}>LOGOUT</Button>
                 </Section>
                 <Section key="content" className="content" type={Section.types.HALF}>
                     <Spin spinning={fetching}>
@@ -41,7 +41,7 @@ export default class Blog extends Component {
                     </Spin>
                 </Section>
                 <Section key="paginator" className="paginator" type={Section.types.HALF}>
-                    <Paginator { ... paginator } onChange={ this.events.onPaginator }/>
+                    <Paginator {...paginator} onChange={this.events.onPaginator}/>
                 </Section>
             </div>
         )
@@ -53,20 +53,20 @@ export default class Blog extends Component {
     }
     events = {
         onShowPost: (id) => {
-            const { history } = this.props ;
+            const {history} = this.props;
             history.push(`/post/${id}`);
         },
         onRemovePost: (id) => {
-            const { actions:{ removePost } } = this.props;
+            const {actions: {removePost}} = this.props;
             removePost(id);
         },
-        onPaginator: ( pageNo ) => {
+        onPaginator: (pageNo) => {
             const {actions: {getPosts}} = this.props;
             getPosts(pageNo);
         },
         onCreatePostModalTrigger: () => {
             const {hasCreatePostVisible} = this.state;
-            this.setState({ hasCreatePostVisible: !hasCreatePostVisible });
+            this.setState({hasCreatePostVisible: !hasCreatePostVisible});
         }
     }
 }

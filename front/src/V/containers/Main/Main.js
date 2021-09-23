@@ -7,12 +7,12 @@ import {ConfigProvider} from "antd"
 
 const Main = () => {
     return (
-        <Provider store={ factory() }>
-            <ConfigProvider locale={ en_US }>
-                <Application />
+        <Provider store={factory()}>
+            <ConfigProvider locale={en_US}>
+                <Application/>
             </ConfigProvider>
         </Provider>
     )
 }
 
-export default Main ;
+export default Main;

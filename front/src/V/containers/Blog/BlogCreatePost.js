@@ -16,7 +16,7 @@ export default class BlogCreatePost extends Component {
         onClose: PropTypes.func
     }
 
-    state = { ... BlogCreatePost.initialState }
+    state = {...BlogCreatePost.initialState}
     constructor(props) {
         super(props);
     }
@@ -30,7 +30,6 @@ export default class BlogCreatePost extends Component {
             </Modal>
         )
     }
-
     events = {
         onChange: (id) => ({target: {value}}) => {
             this.setState({[id]: value});

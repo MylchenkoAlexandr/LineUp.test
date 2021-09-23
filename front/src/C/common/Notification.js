@@ -1,10 +1,10 @@
-import { notification } from 'antd';
+import {notification} from 'antd';
 
-const showNotification = ({ title, message, className }) => notification.open({
+const showNotification = ({title, message, className}) => notification.open({
     className,
     message: title,
     description: message,
     duration: 5
 });
 
-export default showNotification ;
+export default showNotification;

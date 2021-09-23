@@ -11,19 +11,19 @@ export default class Section extends Component {
         type: Section.types.WIDE
     }
     static propTypes = {
-        type: PropTypes.oneOf([ Section.types.WIDE, Section.types.HALF ]),
+        type: PropTypes.oneOf([Section.types.WIDE, Section.types.HALF]),
         className: PropTypes.string
     }
 
-    constructor( props ) {
-        super( props );
+    constructor(props) {
+        super(props);
     }
     render() {
-        const { children, type, className } = this.props ;
+        const {children, type, className} = this.props;
         return (
-            <div className={ ClassNames( "Section", className ) } data-type={ type }>
+            <div className={ClassNames("Section", className)} data-type={type}>
                 <div className="wrapper">
-                    { children }
+                    {children}
                 </div>
             </div>
         )

@@ -48,10 +48,10 @@ export default class Controller extends EndPointControllerBase {
         return user;
     }
     private createAccessToken = ( user:object ):string => {
-        const { secret, sessionTimeout } = Config.singleton().config ;
+        const { secret, sessionTimeout: expiresIn } = Config.singleton().config ;
         const id:string = get( user, "id", null );
         if( !id ) throw new Error("Wrong user metadata")
-        const accessToken:string = createSessionJWTToken({id}, secret, { expiresIn: sessionTimeout });
+        const accessToken:string = createSessionJWTToken({id}, secret, { expiresIn });
 
         return accessToken ;
     }

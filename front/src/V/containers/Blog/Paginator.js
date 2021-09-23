@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Logger from "../../../C/common/Logger";
 import {Pagination} from 'antd';
 import PropTypes from "prop-types";
 
@@ -16,9 +15,9 @@ export default class Paginator extends Component {
         super(props);
     }
     render() {
-        const {total, page, limit, onChange} = this.props;
+        const {total, page, onChange} = this.props;
         return (
-            <Pagination current={page} total={total} onChange={ onChange }/>
+            <Pagination current={page} total={total} onChange={onChange}/>
         )
     }
 }

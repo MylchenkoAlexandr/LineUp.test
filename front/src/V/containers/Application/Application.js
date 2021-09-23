@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Logger from "../../../C/common/Logger";
 import {TOKEN_STORE_KEY} from "../../../C/common/Constants";
 import LocalStorage from "../../../C/common/LocalStorage";
 import Authentication from "../../components/Authentication";
@@ -14,15 +13,15 @@ import {createBrowserHistory} from 'history'
 const history = createBrowserHistory();
 
 @connect(
-    ({ authentication }) => ({ store:{ authentication } }),
-    ( dispatch ) => ({ actions: bindActionCreators({ authenticator }, dispatch ) })
+    ({authentication}) => ({store: {authentication}}),
+    (dispatch) => ({actions: bindActionCreators({authenticator}, dispatch)})
 )
 export default class Application extends Component {
-    constructor( props ) {
-        super( props );
+    constructor(props) {
+        super(props);
     }
     render() {
-        const token = this.controller.getSessionToken() ;
+        const token = this.controller.getSessionToken();
         return (
             <div className="Application">
                 {
@@ -34,34 +33,34 @@ export default class Application extends Component {
         )
     }
 
-    ui={
+    controller = {
+        getSessionToken: () => {
+            const store = LocalStorage(TOKEN_STORE_KEY);
+            return store.getState();
+        }
+    }
+    events = {
+        onSignIn: ({username, password}) => {
+            const {actions: {authenticator}} = this.props;
+            authenticator({username, password});
+        }
+    }
+    ui = {
         authentication: () => {
-            const { store:{ authentication:{ fetching } } } = this.props ;
+            const {store: {authentication: {fetching}}} = this.props;
             return (
-                <Authentication onSignIn={ this.events.onSignIn } disabled={ fetching } />
+                <Authentication onSignIn={this.events.onSignIn} disabled={fetching}/>
             )
         },
         router: () => {
             return (
                 <Router history={history}>
                     <Switch>
-                        <Route exact path="/" component={Blog} />
-                        <Route path="/post/:id" component={BlogPost}  />
+                        <Route exact path="/" component={Blog}/>
+                        <Route path="/post/:id" component={BlogPost}/>
                     </Switch>
                 </Router>
             )
-        }
-    }
-    controller = {
-        getSessionToken: () => {
-            const store = LocalStorage( TOKEN_STORE_KEY ) ;
-            return store.getState() ;
-        }
-    }
-    events = {
-        onSignIn: ({ username, password }) => {
-            const { actions:{ authenticator } } = this.props ;
-            authenticator({ username, password }) ;
         }
     }
 }

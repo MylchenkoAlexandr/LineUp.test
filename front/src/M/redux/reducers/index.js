@@ -5,6 +5,6 @@ import blog from "./blog.reducer";
 const reducers = {
     authentication,
     blog
-} ;
+};
 
-export default combineReducers( reducers );
+export default combineReducers(reducers);
