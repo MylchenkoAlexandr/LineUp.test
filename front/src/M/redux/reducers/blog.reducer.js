@@ -21,7 +21,12 @@ export default ( state={ ... model }, action ) => {
 			const foundIndex = findIndex(_state.data, element => element._id === data._id)
 			_state.data.splice(foundIndex, 1, data)
 
-			/* debug */ Logger.reducer(type, null, { data, _state });
+			return { ... _state, fetching: false, status: true } ;
+		}
+		case ActionTypes.BLOG_REMOVED: {
+			const _state = deepClone(state);
+			const foundIndex = findIndex(_state.data, element => element._id === data._id)
+			_state.data.splice(foundIndex, 1, { ... data, removed: true })
 
 			return { ... _state, fetching: false, status: true } ;
 		}

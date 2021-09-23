@@ -13,6 +13,6 @@ export const createHash = ( data:string, secret:string="" ): string => {
     return md5(`${ secret }${ data }`);
 }
 export const createSessionJWTToken = (data:object, secret:string="", options:object={} ):string => {
-    const token = jwt.sign(data, secret, options )
+    const token = jwt.sign(data, secret, options ) ;
     return token ;
 }

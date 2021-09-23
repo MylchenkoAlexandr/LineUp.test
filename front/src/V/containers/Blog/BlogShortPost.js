@@ -11,7 +11,8 @@ export default class BlogShortPost extends Component {
                 _id: PropTypes.string,
                 title: PropTypes.string,
                 content: PropTypes.string,
-                dateCreated: PropTypes.number
+                dateCreated: PropTypes.number,
+                removed: PropTypes.bool
             })
         ),
         onShow: PropTypes.func,
@@ -28,9 +29,9 @@ export default class BlogShortPost extends Component {
     }
     ui = {
         items:( data ) => {
-            return data.map( ({ _id, title, content, dateCreated })=>{
+            return data.map( ({ _id, title, content, removed=false, dateCreated })=>{
                 return (
-                    <div key={ _id } className="BlogShortPost">
+                    <div key={ _id } className="BlogShortPost" data-removed={ removed }>
                         <div className="wrapper">
                             <div key="header" className="header">
                                 <div key="dateCreated" className="dateCreated">{ moment( +dateCreated ).fromNow() }</div>
@@ -41,8 +42,8 @@ export default class BlogShortPost extends Component {
                                 { content }
                             </div>
                             <div key="actions" className="actions">
-                                <Button type="primary" onClick={this.events.onShow(_id)}>SHOW</Button>
-                                <Button type="primary" danger onClick={this.events.onRemove(_id)}>REMOVE</Button>
+                                <Button type="primary" disabled={ removed } onClick={this.events.onShow(_id)}>SHOW</Button>
+                                <Button type="primary" disabled={ removed } danger onClick={this.events.onRemove(_id)}>REMOVE</Button>
                             </div>
                         </div>
                     </div>

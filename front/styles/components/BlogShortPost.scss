@@ -5,6 +5,11 @@
   border-radius: $default-border-radius ;
   box-shadow: $default-shadow;
   width: 99% ;
+  &[data-removed="true"] {
+    opacity: $default-half ;
+    pointer-events: none;
+    filter: grayscale(1);
+  }
   &> .wrapper {
     padding: $default-offset-a ;
     overflow: hidden auto ;
@@ -24,6 +29,7 @@
     }
     &> .content {
       @include setFlex(row, space-between, center);
+      padding: $default-offset-b 0 ;
       font-size: 75% ;
     }
     &> .actions {

@@ -3,15 +3,16 @@ import { has } from "lodash";
 import {TOKEN_STORE_KEY, TOKEN_PREFIX} from "../../C/common/Constants";
 import LocalStorage from "../../C/common/LocalStorage";
 import Notification from "../../C/common/Notification";
+import Logger from "../common/Logger";
 
 const create = () => {
     const request = Axios.create({
         baseURL: process.env.HOST_API
     }) ;
-    request.interceptors.request.use( config => {
-        const store = LocalStorage( TOKEN_STORE_KEY );
-        const token = store.getState() ;
+    const store = LocalStorage( TOKEN_STORE_KEY );
 
+    request.interceptors.request.use( config => {
+        const token = store.getState() ;
         if( token ) { config.headers.Authorization = `${ TOKEN_PREFIX } ${ token }` }
 
         return config ;
@@ -28,14 +29,19 @@ const create = () => {
             return response;
         },
         ( error ) => {
+
+            if( error.response.status === 401 ) {
+                setTimeout( () => {
+                    store.clear() ;
+                    window.location.href = "/";
+                }, 2000 ) ;
+            }
             if( has( error, "response.data.error" ) ) {
                 const { message } = error.response.data.error ;
                 Notification({ title:"Error", message, className:"error" });
-
-            } else
-                if( error.message ) {
-                    Notification({ title:"Error", message:error.message, className:"error" });
-                }
+            } else if( error.message ) {
+                Notification({ title:"Error", message:error.message, className:"error" });
+            }
 
             return Promise.reject( error );
         }

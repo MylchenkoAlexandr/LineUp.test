@@ -3,7 +3,7 @@ import Logger from "../../../C/common/Logger";
 import {Button} from 'antd';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {updatePosts} from "../../../M/redux/actions/blog.actions";
+import {updatePost} from "../../../M/redux/actions/blog.actions";
 import {find,isEmpty} from "lodash";
 import Section from "../../components/Section";
 import {EnterOutlined} from '@ant-design/icons';
@@ -11,7 +11,7 @@ import { Input, Spin } from 'antd';
 
 @connect(
     ({blog}) => ({store: {blog}}),
-    (dispatch) => ({actions: bindActionCreators({updatePosts}, dispatch)})
+    (dispatch) => ({actions: bindActionCreators({updatePost}, dispatch)})
 )
 export default class BlogPost extends Component {
     constructor( props ) {
@@ -58,8 +58,8 @@ export default class BlogPost extends Component {
             this.setState({[id]:value});
         },
         onSave: () => {
-            const {actions:{updatePosts}} = this.props ;
-            updatePosts(this.state);
+            const {actions:{updatePost}} = this.props ;
+            updatePost(this.state);
         }
     }
 }

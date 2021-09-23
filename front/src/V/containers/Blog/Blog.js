@@ -3,14 +3,15 @@ import Logger from "../../../C/common/Logger";
 import Section from "../../components/Section";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getPosts} from "../../../M/redux/actions/blog.actions";
-import {Spin} from 'antd';
+import {getPosts, removePost} from "../../../M/redux/actions/blog.actions";
+import {Button, Spin} from 'antd';
 import BlogShortPost from './BlogShortPost';
 import Paginator from './Paginator';
+import {PlusCircleFilled} from '@ant-design/icons';
 
 @connect(
     ({blog}) => ({store: {blog}}),
-    (dispatch) => ({actions: bindActionCreators({getPosts}, dispatch)})
+    (dispatch) => ({actions: bindActionCreators({getPosts, removePost}, dispatch)})
 )
 export default class Blog extends Component {
     static defaultProps = {}
@@ -26,14 +27,12 @@ export default class Blog extends Component {
         return (
             <div className="Blog">
                 <Section key="menu" className="menu" type={Section.types.HALF}>
-                    menu
+                    <Button type="primary" disabled={ ! status || fetching } icon={<PlusCircleFilled />}>CREATE</Button>
                 </Section>
                 <Section key="content" className="content" type={Section.types.HALF}>
-                    {
-                        ! status
-                        ? <Spin spinning={fetching}/>
-                        : <BlogShortPost data={data} onShow={this.events.onShowPost} onRemove={this.events.onRemovePost}/>
-                    }
+                    <Spin spinning={fetching}>
+                        <BlogShortPost data={data || []} onShow={this.events.onShowPost} onRemove={this.events.onRemovePost}/>
+                    </Spin>
                 </Section>
                 <Section key="paginator" className="paginator" type={Section.types.HALF}>
                     <Paginator { ... paginator } onChange={ this.events.onPaginator }/>
@@ -53,7 +52,8 @@ export default class Blog extends Component {
             history.push(`/post/${id}`);
         },
         onRemovePost: (id) => {
-            /* debug */ Logger.log(Blog.name, "events.onRemovePost([id])", id);
+            const { actions:{ removePost } } = this.props;
+            removePost(id);
         },
         onPaginator: ( pageNo ) => {
             const {actions: {getPosts}} = this.props;
